@@ -23,17 +23,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font instruc;
 	Font ufailed;
 	GameObject object;
+	ObjectManager om = new ObjectManager();
 	GamePanel() {
 		object = new GameObject();
 		titleFont = new Font("dragon_alphabet", Font.PLAIN, 36);
 		start = new Font("dragon_alphabet", Font.PLAIN, 24);
 		instruc = new Font("dragon_alphabet", Font.PLAIN, 18);
-		ufailed = new Font("dragon_alphabet", Font.PLAIN, 48);
 	}
 	public void updateMenuState() {
 		
 	}
 	public void updateGameState() {
+		om.update();
 		rs.update();
 	}
 	public void updateEndState() {
@@ -53,12 +54,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void drawGameState(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, 500, 800);
+		om.draw(g);
 		rs.draw(g);
 	}
 	public void drawEndState(Graphics g) {
 		g.setColor(Color.RED);
 		g.fillRect(0, 0, 500, 800);
-		g.setFont(ufailed);
+		g.setFont(titleFont);
 		g.setColor(Color.BLACK);
 		g.drawString("Game Over!", 50, 200);
 		g.setFont(start);
@@ -119,6 +121,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			rs.right();
+		}
+		if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+			om.addObject(new Projectile(rs.x + 20, rs.y + 20, 10, 10));
 		}
 	}
 	@Override
