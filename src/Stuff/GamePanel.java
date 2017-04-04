@@ -16,16 +16,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final int GAME_STATE = 1;
 	final int END_STATE = 2;
 	int currentState = MENU_STATE;
-	Rocketship rs = new Rocketship(250, 700, 50, 50, 5);
+	Rocketship rs = new Rocketship(250, 700, 50, 50, 12);
 	Timer timer = new Timer(1000/60, this);
 	Font titleFont;
 	Font start;
 	Font instruc;
 	Font ufailed;
-	GameObject object;
 	ObjectManager om = new ObjectManager();
 	GamePanel() {
-		object = new GameObject();
 		titleFont = new Font("dragon_alphabet", Font.PLAIN, 36);
 		start = new Font("dragon_alphabet", Font.PLAIN, 24);
 		instruc = new Font("dragon_alphabet", Font.PLAIN, 18);
@@ -35,6 +33,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 	public void updateGameState() {
 		om.update();
+		om.checkCollision();
+		om.manageEnemies();
 		rs.update();
 	}
 	public void updateEndState() {
@@ -77,6 +77,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		else if(currentState == GAME_STATE) {
 			drawGameState(g);
+			om.draw(g);
 		}
 		else if(currentState == END_STATE) {
 			drawEndState(g);
@@ -98,7 +99,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {
-		System.out.println("typed");
+
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -124,10 +125,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		if(e.getKeyCode() == KeyEvent.VK_SPACE) {
 			om.addObject(new Projectile(rs.x + 20, rs.y + 20, 10, 10));
+			System.out.println("Space key actaully works.");
 		}
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
-		System.out.println("released");
+		
 	}
 }
