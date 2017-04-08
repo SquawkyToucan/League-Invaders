@@ -5,10 +5,7 @@ import java.awt.Graphics;
 import java.util.Random;
 
 public class Alien extends GameObject {
-	int x;
-	int y;
-	int width;
-	int height;
+
 	boolean isAlive;
 	Alien(int x, int y, int width, int height) {
 		super(x, y, width, height);

@@ -96,6 +96,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		else if(currentState == END_STATE) {
 			updateEndState();
+			om.reset();
 		}
 		repaint();
 	}
@@ -127,7 +128,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		if(e.getKeyCode() == KeyEvent.VK_SPACE) {
 			om.addObject(new Projectile(rs.x + 20, rs.y + 20, 10, 10));
-			//System.out.println("Space key actaully works.");
+			//System.out.println("Space key actually works.");
 		}
 	}
 	@Override
