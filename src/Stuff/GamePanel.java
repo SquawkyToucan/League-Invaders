@@ -24,6 +24,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font ufailed;
 	ObjectManager om = new ObjectManager();
 	GamePanel() {
+		om.addObject(rs);
 		titleFont = new Font("dragon_alphabet", Font.PLAIN, 36);
 		start = new Font("dragon_alphabet", Font.PLAIN, 24);
 		instruc = new Font("dragon_alphabet", Font.PLAIN, 18);
@@ -35,6 +36,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		om.update();
 		om.checkCollision();
 		om.manageEnemies();
+		
 		rs.update();
 	}
 	public void updateEndState() {
@@ -125,7 +127,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		if(e.getKeyCode() == KeyEvent.VK_SPACE) {
 			om.addObject(new Projectile(rs.x + 20, rs.y + 20, 10, 10));
-			System.out.println("Space key actaully works.");
+			//System.out.println("Space key actaully works.");
 		}
 	}
 	@Override

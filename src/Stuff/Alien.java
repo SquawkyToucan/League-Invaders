@@ -9,18 +9,20 @@ public class Alien extends GameObject {
 	int y;
 	int width;
 	int height;
+	boolean isAlive;
 	Alien(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		isAlive = true;
 	}
 	void update() {
 		super.update();
 		y++;
-		int change = new Random().nextInt(10);
-		x = x + (change - 5);
+		//int movethis = new Random().nextInt(6);
+		//x = x + (movethis - 3);
 	}
 	void draw(Graphics g) {
 		g.setColor(Color.YELLOW);
