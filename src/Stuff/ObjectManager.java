@@ -10,7 +10,7 @@ public class ObjectManager {
 	private int score = 0;
 	
 	long enemyTimer = 0;
-	int enemySpawnTime = 1000;
+	int enemySpawnTime = 3000;
 	
 	public ObjectManager() {
 		objects = new ArrayList<GameObject>();
