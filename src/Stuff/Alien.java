@@ -22,7 +22,7 @@ public class Alien extends GameObject {
 		//x = x + (movethis - 3);
 	}
 	void draw(Graphics g) {
-		g.setColor(Color.YELLOW);
-		g.fillRect(x, y, width, height);
+		g.drawImage(GamePanel.alienImg, x, y, width, height, null);
+
 	}
 }

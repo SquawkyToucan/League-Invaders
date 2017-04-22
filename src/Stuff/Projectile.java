@@ -22,7 +22,7 @@ public class Projectile extends GameObject{
 		}
 	}
 	void draw(Graphics g) {
-		g.setColor(new Color(255, 0, 0));
-		g.fillRect(x, y, width, height);
+		g.drawImage(GamePanel.rocketImg, x, y, width, height, null);
+
 	}
 }

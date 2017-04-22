@@ -7,11 +7,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
+	public static BufferedImage alienImg;
+	public static BufferedImage rocketImg;
+	public static BufferedImage bulletImg;
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
 	final int END_STATE = 2;
@@ -28,6 +34,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		titleFont = new Font("dragon_alphabet", Font.PLAIN, 36);
 		start = new Font("dragon_alphabet", Font.PLAIN, 24);
 		instruc = new Font("dragon_alphabet", Font.PLAIN, 18);
+		try {
+			alienImg = ImageIO.read(this.getClass().getResourceAsStream("alien.png"));
+			rocketImg = ImageIO.read(this.getClass().getResourceAsStream("rocket.png"));
+			bulletImg = ImageIO.read(this.getClass().getResourceAsStream("bullet.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 	public void updateMenuState() {
 		
@@ -36,8 +51,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		om.update();
 		om.checkCollision();
 		om.manageEnemies();
-		
-		rs.update();
+		if(!rs.isAlive) {
+			currentState = END_STATE;
+			om.reset();
+			rs = new Rocketship(250, 700, 50, 50, 12);
+			om.addObject(rs);
+			rs.isAlive = true;
+		}
 	}
 	public void updateEndState() {
 		
@@ -57,7 +77,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, 500, 800);
 		om.draw(g);
-		rs.draw(g);
 	}
 	public void drawEndState(Graphics g) {
 		g.setColor(Color.RED);
@@ -66,7 +85,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.BLACK);
 		g.drawString("Game Over!", 50, 200);
 		g.setFont(start);
-		g.drawString("You killed 0 aliens.", 50, 400);
+		g.drawString("You killed " + om.getScore() + " aliens.", 50, 400);
 		g.setFont(instruc);
 		g.drawString("Press backspace to go back", 40, 500);
 	}
@@ -96,7 +115,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		else if(currentState == END_STATE) {
 			updateEndState();
-			om.reset();
 		}
 		repaint();
 	}
